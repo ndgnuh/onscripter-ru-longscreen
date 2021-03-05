@@ -151,10 +151,10 @@ void WindowController::applyDimensions(int rw, int rh, int cw, int ch, int dw) {
 
 	if (dw > 0) {
 		screen_width  = dw;
-		screen_height = dw * script_height / script_width;
+		screen_height = dw * (1.0 * rh / rw);
 	} else {
-		screen_width  = script_width;
-		screen_height = script_height;
+		screen_width  = rw;
+		screen_height = rh;
 	}
 
 	windowed_screen_width  = screen_width;
@@ -243,7 +243,7 @@ bool WindowController::updateDisplayData(bool getpos) {
 	if (displayData.fullscreenDisplay) {
 		fullscript_width    = script_width * displayData.fullscreenDisplay->native_width / static_cast<float>(fullscreen_width);
 		fullscript_height   = script_height * displayData.fullscreenDisplay->native_height / static_cast<float>(fullscreen_height);
-		fullscript_offset_x = (fullscript_width - script_width) / 2;
+		fullscript_offset_x = (fullscreen_width - script_width) / 2 ;
 		fullscript_offset_y = (fullscript_height - script_height) / 2;
 		// A hack for some resolutions to solve scaling issues like random stripes
 		// e. g. 1366x768
@@ -255,7 +255,7 @@ bool WindowController::updateDisplayData(bool getpos) {
 		return true;
 	}
 	//Don't bother extra scaling when window is bigger than screen (default ONS behaviour)
-	return false;
+	return true;
 }
 
 bool WindowController::changeMode(bool perform, bool correct, int mode) {
