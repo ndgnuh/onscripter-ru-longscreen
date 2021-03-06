@@ -151,10 +151,10 @@ void WindowController::applyDimensions(int rw, int rh, int cw, int ch, int dw) {
 
 	if (dw > 0) {
 		screen_width  = dw;
-		screen_height = dw * (1.0 * rh / rw);
+		screen_height = dw * (1.0 * script_height / script_width);
 	} else {
-		screen_width  = rw;
-		screen_height = rh;
+		screen_width  = script_width;
+		screen_height = script_height;
 	}
 
 	windowed_screen_width  = screen_width;
@@ -255,7 +255,7 @@ bool WindowController::updateDisplayData(bool getpos) {
 		return true;
 	}
 	//Don't bother extra scaling when window is bigger than screen (default ONS behaviour)
-	return true;
+	return false;
 }
 
 bool WindowController::changeMode(bool perform, bool correct, int mode) {
